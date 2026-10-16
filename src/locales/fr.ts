@@ -19,7 +19,7 @@ export const fr: Translation = {
   },
   about: {
     title: "À propos",
-    text: "Étudiante en développement digital (Web Full Stack), passionnée par l’informatique et les nouvelles technologies. Je souhaite intégrer une formation universitaire en informatique afin de renforcer mes compétences en algorithmique, programmation et conception de systèmes.",
+    text: "Développeuse web passionnée par la création d’applications modernes, performantes et adaptées aux besoins des utilisateurs. 💻\n\nJe travaille avec des technologies comme **React.js, Node.js, JavaScript, PHP, Laravel et WordPress**, avec un intérêt particulier pour le développement full-stack, la création d’API et l’optimisation des performances web.\n\nCurieuse, motivée et toujours prête à apprendre, j’aime relever de nouveaux défis techniques et transformer des idées en solutions concrètes.\n\n🚀 Je suis ouverte aux opportunités professionnelles, aux projets stimulants et aux collaborations qui me permettront de développer mes compétences et d’apporter une réelle valeur ajoutée à une équipe.\n\n📩 N’hésitez pas à me contacter pour échanger sur vos projets ou vos opportunités.",
   },
   
   experience: {
@@ -39,17 +39,6 @@ export const fr: Translation = {
         ],
       },
       {
-        title: "Stage — Service Informatique",
-        org: "Agence Urbaine de Béni Mellal",
-        location: "Béni Mellal, Maroc",
-        period: "2025",
-        bullets: [
-          "Participation à des tâches liées au service informatique.",
-          "Manipulation et gestion de données.",
-          "Support technique et organisation des informations.",
-        ],
-      },
-      {
         title: "Stage — Développement Web",
         org: "JIBAL Service IT",
         location: "Béni Mellal, Maroc",
@@ -62,28 +51,6 @@ export const fr: Translation = {
           "Implémentation des opérations CRUD (création, lecture, mise à jour, suppression) pour la gestion des tickets",
          " Gestion des utilisateurs",
           "Technologies utilisées : HTML, CSS, JavaScript, PHP, MySQL",
-        ],
-      },
-      {
-        title: "Stage de perfectionnement — Direction Exploitation, Étude & Développement",
-        org: "Direction Exploitation, Étude & Développement",
-        location: "Maroc",
-        period: "2022",
-        bullets: [
-          "Analyse des processus techniques.",
-          "Participation à des études et à l’amélioration des systèmes.",
-          "Rédaction de rapports techniques.",
-        ],
-      },
-      {
-        title: "Stage",
-        org: "Groupe Bella Forme",
-        location: "Maroc",
-        period: "2021",
-        bullets: [
-          "Découverte du fonctionnement interne d’une entreprise.",
-          "Participation aux activités quotidiennes.",
-          "Observation des processus de production.",
         ],
       },
       {

@@ -378,15 +378,14 @@ section h2 {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
-  background: var(--bg);
+  background: #fff;
   min-height: 420px;
 }
 
-.resume-preview iframe {
+.resume-preview-pages canvas {
   display: block;
   width: 100%;
-  height: min(70vh, 640px);
-  border: none;
+  height: auto;
 }
 
 /* —— Projects (reference-style sidebar + grid + lightbox carousel) —— */

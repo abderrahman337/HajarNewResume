@@ -235,7 +235,8 @@ export const en: Translation = {
   },
   about: {
     title: "About",
-    text: "Student in digital development (Web Full Stack), passionate about computer science and new technologies. I aim to join a university program in computer science to strengthen my skills in algorithms, programming, and systems design.",  },
+    text: "Web developer passionate about building modern, high-performance applications tailored to users’ needs. 💻\n\nI work with technologies such as **React.js, Node.js, JavaScript, PHP, Laravel, and WordPress**, with a particular interest in full-stack development, API creation, and web performance optimization.\n\nCurious, motivated, and always ready to learn, I enjoy taking on new technical challenges and turning ideas into concrete solutions.\n\n🚀 I am open to professional opportunities, stimulating projects, and collaborations that will help me grow my skills and bring real value to a team.\n\n📩 Feel free to contact me to talk about your projects or opportunities.",
+  },
   
   experience: {
     title: "Experience",
@@ -254,17 +255,6 @@ export const en: Translation = {
         ],
       },
       {
-        title: "Internship — IT Service",
-        org: "Agence Urbaine de Béni Mellal",
-        location: "Beni Mellal, Morocco",
-        period: "2025",
-        bullets: [
-          "Participated in IT-related tasks within the organization.",
-          "Handled and managed data efficiently.",
-          "Provided technical support and organized information.",
-        ],
-      },
-      {
         title: "Internship — Web Development",
         org: "JIBAL Service IT",
         location: "Beni Mellal, Morocco",
@@ -278,28 +268,6 @@ export const en: Translation = {
             "User management",
             "Technologies used: HTML, CSS, JavaScript, PHP, MySQL"
          
-        ],
-      },
-      {
-        title: "Advanced Internship — Operations, Study & Development",
-        org: "Direction Exploitation, Étude & Développement",
-        location: "Morocco",
-        period: "2022",
-        bullets: [
-          "Analyzed technical processes.",
-          "Contributed to system improvement studies.",
-          "Prepared technical reports.",
-        ],
-      },
-      {
-        title: "Internship",
-        org: "Groupe Bella Forme",
-        location: "Morocco",
-        period: "2021",
-        bullets: [
-          "Discovered internal company operations.",
-          "Participated in daily activities.",
-          "Observed production processes.",
         ],
       },
       {

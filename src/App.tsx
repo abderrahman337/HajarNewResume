@@ -10,6 +10,115 @@ const PHONE_2_E164 = "+212641807253";
 const DEFAULT_RESUME = "/resume.pdf";
 const STORAGE_KEY = "uploadedResume";
 
+function AboutText({ text }: { text: string }) {
+  const paragraphs = text.split(/\n\n+/);
+  return (
+    <>
+      {paragraphs.map((paragraph, index) => (
+        <p
+          key={index}
+          style={{
+            margin: index === paragraphs.length - 1 ? 0 : "0 0 0.9rem",
+            color: "var(--text-muted)",
+          }}
+        >
+          {paragraph.split(/(\*\*[^*]+\*\*)/g).map((part, partIndex) =>
+            part.startsWith("**") && part.endsWith("**") ? (
+              <strong key={partIndex} style={{ color: "var(--text)", fontWeight: 600 }}>
+                {part.slice(2, -2)}
+              </strong>
+            ) : (
+              part
+            ),
+          )}
+        </p>
+      ))}
+    </>
+  );
+}
+
+type PdfJsLib = {
+  GlobalWorkerOptions: { workerSrc: string };
+  getDocument: (src: string) => {
+    promise: Promise<{
+      numPages: number;
+      getPage: (pageNumber: number) => Promise<{
+        getViewport: (options: { scale: number }) => { width: number; height: number };
+        render: (options: {
+          canvasContext: CanvasRenderingContext2D;
+          viewport: { width: number; height: number };
+        }) => { promise: Promise<void> };
+      }>;
+    }>;
+  };
+};
+
+function loadPdfJs(): Promise<PdfJsLib> {
+  const win = window as Window & { pdfjsLib?: PdfJsLib };
+  if (win.pdfjsLib) {
+    win.pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
+    return Promise.resolve(win.pdfjsLib);
+  }
+
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "/pdf.min.js";
+    script.async = true;
+    script.onload = () => {
+      if (!win.pdfjsLib) {
+        reject(new Error("pdf.js did not load"));
+        return;
+      }
+      win.pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
+      resolve(win.pdfjsLib);
+    };
+    script.onerror = () => reject(new Error("pdf.js failed to load"));
+    document.head.appendChild(script);
+  });
+}
+
+function ResumePreview({ src, title }: { src: string; title: string }) {
+  const hostRef = useRef<HTMLDivElement>(null);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    setFailed(false);
+    const host = hostRef.current;
+    if (!host) return;
+    host.replaceChildren();
+
+    loadPdfJs()
+      .then((pdfjs) => pdfjs.getDocument(src).promise)
+      .then(async (pdf) => {
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
+          if (cancelled) return;
+          const page = await pdf.getPage(pageNumber);
+          const viewport = page.getViewport({ scale: 2 });
+          const canvas = document.createElement("canvas");
+          const context = canvas.getContext("2d");
+          if (!context) continue;
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+          host.appendChild(canvas);
+          await page.render({ canvasContext: context, viewport }).promise;
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to render resume PDF:", error);
+        if (!cancelled) setFailed(true);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [src]);
+
+  if (failed) return null;
+
+  return <div ref={hostRef} className="resume-preview-pages" role="img" aria-label={title} />;
+}
+
 function App() {
   const { lang, setLang, t } = useT();
   const resumeObjectUrlRef = useRef<string | null>(null);
@@ -168,7 +277,7 @@ function App() {
         <section id="about" aria-labelledby="about-title">
           <h2 id="about-title">{t.about.title}</h2>
           <div className="card">
-            <p style={{ margin: 0, color: "var(--text-muted)" }}>{t.about.text}</p>
+            <AboutText text={t.about.text} />
           </div>
           <h2 id="langs" style={{ marginTop: "2rem" }}>
             {t.languages.title}
@@ -353,7 +462,7 @@ function App() {
             <p className="resume-hint">{t.resume.uploadHint}</p>
             {showPreview ? (
               <div className="resume-preview">
-                <iframe title={t.resume.title} src={previewSrc} />
+                <ResumePreview src={previewSrc} title={t.resume.title} />
               </div>
             ) : null}
           </div>
